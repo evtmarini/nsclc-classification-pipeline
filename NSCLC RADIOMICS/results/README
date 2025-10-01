@@ -9,15 +9,11 @@ This directory contains the **evaluation results** of the machine learning pipel
 
 ## 🧠 Experiment Setup
 
-- **Dataset:** Radiomic features extracted from manually segmented lung nodules (N ≈ 471)
-- **Classes:**  
-  - Benign  
-  - Adenocarcinoma  
-  - Squamous cell carcinoma  
-  - Large cell carcinoma  
-- **Cross-validation:** Stratified 4-fold CV  
+- **Dataset:** Radiomic features from segmented lung nodules (N ≈ 471)  
+- **Classes:** Benign, Adenocarcinoma, Squamous cell carcinoma, Large cell carcinoma  
+- **Cross-validation:** Stratified 4-fold  
 - **Hyperparameter tuning:** GridSearchCV  
-- **Metrics:** F1-score (weighted), Accuracy, Precision, Recall
+- **Metrics:** Weighted F1-score, Accuracy, Precision, Recall
 
 ---
 
@@ -25,71 +21,72 @@ This directory contains the **evaluation results** of the machine learning pipel
 
 | Feature Selection | Classifier | F1-score | Accuracy | Precision | Recall |
 |-------------------|------------|----------|----------|-----------|--------|
-| **CorrSF**        | Random Forest            | 0.5813 | 0.6815 | 0.5951 | 0.6815 |
-| CorrSF            | Logistic Regression (L1) | 0.5001 | 0.4566 | 0.6152 | 0.4566 |
-| CorrSF            | SVM (RBF)                | 0.5554 | 0.5499 | 0.5643 | 0.5499 |
-| **Boruta**        | Random Forest            | 0.5796 | 0.6560 | 0.5563 | 0.6560 |
-| Boruta           | Logistic Regression (L1) | 0.4027 | 0.3441 | 0.5907 | 0.3441 |
-| Boruta           | SVM (RBF)                | 0.4721 | 0.4310 | 0.5573 | 0.4310 |
-| **RFE-SVM**       | Random Forest            | 0.5794 | 0.6858 | 0.5838 | 0.6858 |
-| RFE-SVM          | Logistic Regression (L1) | 0.5633 | 0.5309 | 0.6285 | 0.5309 |
-| RFE-SVM          | SVM (RBF)                | 0.5761 | 0.5710 | 0.5826 | 0.5710 |
-| **L1-LASSO**      | Random Forest            | 0.5801 | 0.6794 | 0.5915 | 0.6794 |
-| L1-LASSO         | Logistic Regression (L1) | 0.5644 | 0.5372 | 0.6196 | 0.5372 |
-| L1-LASSO         | SVM (RBF)                | **0.5950** | **0.6008** | 0.5908 | **0.6008** |
-| **RF-imp**        | Random Forest            | 0.5795 | 0.6773 | 0.5541 | 0.6773 |
-| RF-imp          | Logistic Regression (L1) | 0.4909 | 0.4522 | 0.5726 | 0.4522 |
-| RF-imp          | SVM (RBF)                | 0.5610 | 0.5520 | 0.5766 | 0.5520 |
+| CorrSF        | Random Forest            | 0.5813 | 0.6815 | 0.5951 | 0.6815 |
+| CorrSF        | Logistic Regression (L1) | 0.5001 | 0.4566 | 0.6152 | 0.4566 |
+| CorrSF        | SVM (RBF)                | 0.5554 | 0.5499 | 0.5643 | 0.5499 |
+| Boruta        | Random Forest            | 0.5796 | 0.6560 | 0.5563 | 0.6560 |
+| Boruta        | Logistic Regression (L1) | 0.4027 | 0.3441 | 0.5907 | 0.3441 |
+| Boruta        | SVM (RBF)                | 0.4721 | 0.4310 | 0.5573 | 0.4310 |
+| RFE-SVM       | Random Forest            | 0.5794 | **0.6858** | 0.5838 | **0.6858** |
+| RFE-SVM       | Logistic Regression (L1) | 0.5633 | 0.5309 | 0.6285 | 0.5309 |
+| RFE-SVM       | SVM (RBF)                | 0.5761 | 0.5710 | 0.5826 | 0.5710 |
+| L1-LASSO      | Random Forest            | 0.5801 | 0.6794 | 0.5915 | 0.6794 |
+| L1-LASSO      | Logistic Regression (L1) | 0.5644 | 0.5372 | 0.6196 | 0.5372 |
+| L1-LASSO      | SVM (RBF)                | **0.5950** | 0.6008 | 0.5908 | 0.6008 |
+| RF-imp        | Random Forest            | 0.5795 | 0.6773 | 0.5541 | 0.6773 |
+| RF-imp        | Logistic Regression (L1) | 0.4909 | 0.4522 | 0.5726 | 0.4522 |
+| RF-imp        | SVM (RBF)                | 0.5610 | 0.5520 | 0.5766 | 0.5520 |
 
-📁 Detailed results table: [`ml_results.csv`](./ml_results.csv)
+📁 Full results: [`ml_results.csv`](./ml_results.csv)
 
 ---
 
 ## 📊 Visualization
 
-The following figure shows the weighted **F1-score** across all feature selection methods and classifiers:
+F1-score comparison across feature selection methods and classifiers:
 
 ![F1-score comparison](./ml_results.png)
 
-- **X-axis:** Feature Selection Method  
-- **Y-axis:** F1-score  
-- **Color:** Classifier
+---
+
+## 🧪 Key Takeaways
+
+- **Best model:** `L1-LASSO + SVM (RBF)` → **F1 ≈ 0.595**, **Accuracy ≈ 0.601**  
+- **Highest accuracy:** `RFE-SVM + Random Forest` → **Accuracy ≈ 0.686**  
+- **Random Forest** shows stable performance across methods (~0.67–0.68 Accuracy).  
+- **Logistic Regression (L1)** trades accuracy for higher **Precision**, suitable when false positives must be minimized.  
+- **Boruta** underperforms compared to simpler filter-based methods like CorrSF.
 
 ---
 
-## 🧪 Key Insights
+## 📊 Συνοψή Αποτελεσμάτων
 
-🔍 **Top-performing combination:**  
-- `L1-LASSO + SVM (RBF)` achieved the best performance with:
-  - **F1-score:** 0.5950  
-  - **Accuracy:** 0.6008  
+Η αξιολόγηση του pipeline ταξινόμησης NSCLC έδειξε ότι τα μοντέλα μηχανικής μάθησης μπορούν να μάθουν αποτελεσματικά από ραδιομικά χαρακτηριστικά και να διακρίνουν τους υποτύπους του καρκίνου με ικανοποιητική ακρίβεια.
 
-📊 **Additional observations:**
+🔎 **Κύρια σημεία:**
 
-- **Random Forest** models achieved consistent accuracy across different feature selection methods (~0.67–0.68).  
-- **RFE-SVM + RF** achieved the highest accuracy (0.6858), indicating the effectiveness of recursive feature elimination.  
-- **Logistic Regression (L1)** consistently showed lower accuracy but higher **precision**, making it a potential choice for tasks where false positives are critical.  
-- **Boruta** did not outperform simpler filters (CorrSF), suggesting that domain-specific feature relevance is crucial.
+- Οι τιμές **F1-score** κυμαίνονται από ~0.40 έως **0.595**, ενώ η **Accuracy** από ~0.34 έως **0.686**.  
+- Ο καλύτερος συνολικά συνδυασμός ήταν:  
+  - **L1-LASSO + SVM (RBF)** → **F1 ≈ 0.595**, **Accuracy ≈ 0.601**  
+- Η υψηλότερη ακρίβεια επιτεύχθηκε με:  
+  - **RFE-SVM + Random Forest** → **Accuracy ≈ 0.686**  
+- Ο **Random Forest** παρουσίασε σταθερή απόδοση (~0.67–0.68 Accuracy).  
+- Η **Logistic Regression (L1)** είχε μικρότερη ακρίβεια αλλά υψηλότερη **Precision**, χρήσιμη σε περιπτώσεις όπου είναι κρίσιμη η μείωση ψευδώς θετικών.  
+- Η **Boruta** δεν υπερείχε, δείχνοντας ότι απλούστερες μέθοδοι (π.χ. CorrSF) μπορεί να είναι πιο αποτελεσματικές.
 
----
-
-## 📍 Next Steps
-
-- 🔬 Validate the model on external public datasets (e.g., TCIA NSCLC Radiomics).  
-- 🧠 Implement **SHAP** and **LIME** for feature attribution and explainability.  
-- 🩺 Integrate histopathological features to enhance classification accuracy.  
-- 🚀 Package the pipeline into a deployable API or web service for clinical use.
+📈 **Συμπέρασμα:**  
+Το pipeline επιτυγχάνει αξιόπιστη ταξινόμηση των υποτύπων NSCLC χρησιμοποιώντας αποκλειστικά ραδιομικά χαρακτηριστικά από αξονικές τομογραφίες. Παρότι οι επιδόσεις είναι μεσαίες, αποτελούν μια **ισχυρή βάση για περαιτέρω βελτίωση** με περισσότερα δεδομένα, συνδυασμό με ιστοπαθολογικές πληροφορίες και ενσωμάτωση τεχνικών ερμηνευσιμότητας όπως **SHAP** και **LIME**.
 
 ---
 
-## 📁 Files in this Directory
+## 📁 Files
 
 | File | Description |
 |------|------------|
-| `ml_results.csv` | Full results table (all metrics, all experiments) |
-| `ml_results.png` | Barplot visualization (F1-score vs FS method & classifier) |
-| `selected_features_*.csv` | Top features selected by each feature selection method |
+| `ml_results.csv` | Full metrics table |
+| `ml_results.png` | F1-score visualization |
+| `selected_features_*.csv` | Selected feature lists |
 
 ---
 
-📄 *This report is part of the MSc thesis project by **Evita Marini** – Ionian University MSc Program in Bioinformatics and Neuroinformatics.*
+📄 *Part of the MSc thesis project by **Evita Marini** – Ionian University MSc Program in Bioinformatics and Neuroinformatics.*
