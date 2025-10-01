@@ -9,4 +9,4 @@ def plot_results(results_df, save_path):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.savefig(save_path)
-    print(f"[OK] Saved plot → {save_path}")
+    print(f"Plot saved -> {save_path}")
