@@ -10,7 +10,7 @@ from pathlib import Path
 # Paths
 base = Path("/workspace/data/validation_data/LungCancer/pp_evita")
 path = base / "labeled_radiomics_features.csv"
-results_dir = base / "feature_selection_results_modular"
+results_dir = base / "feature_selection_results_final"
 results_dir.mkdir(exist_ok=True)
 features_dir = results_dir / "selected_features1000"
 features_dir.mkdir(exist_ok=True)
