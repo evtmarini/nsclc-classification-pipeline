@@ -1,92 +1,23 @@
-# 📊 NSCLC Classification Results
-
-This directory contains the **evaluation results** of the machine learning pipeline developed for the project:
-
-> 🩺 *"Development of ML model for non-small cell lung cancer detection"*  
-> MSc Thesis – Bioinformatics & Neuroinformatics, Ionian University
+Βεβαίως — εδώ είναι η τελική, απλή και καθαρή εκδοχή της σύνοψης για το `results/README.md`, χωρίς emoji και με ύφος κατάλληλο για ακαδημαϊκό ή GitHub περιβάλλον:
 
 ---
 
-## 🧠 Experiment Setup
+## Συνοψή Αποτελεσμάτων
 
-- **Dataset:** Radiomic features from segmented lung nodules (N ≈ 471)  
-- **Classes:** Benign, Adenocarcinoma, Squamous cell carcinoma, Large cell carcinoma  
-- **Cross-validation:** Stratified 4-fold  
-- **Hyperparameter tuning:** GridSearchCV  
-- **Metrics:** Weighted F1-score, Accuracy, Precision, Recall
+Η ανάλυση έδειξε ότι το pipeline μπορεί να ταξινομήσει με αξιοπιστία τους υποτύπους NSCLC χρησιμοποιώντας αποκλειστικά ραδιομικά χαρακτηριστικά.
 
----
+**Κύρια σημεία:**
 
-## 📈 Results Summary
+* Οι επιδόσεις κυμαίνονται από F1 ≈ 0.40 έως 0.595 και Accuracy ≈ 0.34 – 0.686.
+* Ο καλύτερος συνολικός συνδυασμός ήταν:
 
-| Feature Selection | Classifier | F1-score | Accuracy | Precision | Recall |
-|-------------------|------------|----------|----------|-----------|--------|
-| CorrSF        | Random Forest            | 0.5813 | 0.6815 | 0.5951 | 0.6815 |
-| CorrSF        | Logistic Regression (L1) | 0.5001 | 0.4566 | 0.6152 | 0.4566 |
-| CorrSF        | SVM (RBF)                | 0.5554 | 0.5499 | 0.5643 | 0.5499 |
-| Boruta        | Random Forest            | 0.5796 | 0.6560 | 0.5563 | 0.6560 |
-| Boruta        | Logistic Regression (L1) | 0.4027 | 0.3441 | 0.5907 | 0.3441 |
-| Boruta        | SVM (RBF)                | 0.4721 | 0.4310 | 0.5573 | 0.4310 |
-| RFE-SVM       | Random Forest            | 0.5794 | **0.6858** | 0.5838 | **0.6858** |
-| RFE-SVM       | Logistic Regression (L1) | 0.5633 | 0.5309 | 0.6285 | 0.5309 |
-| RFE-SVM       | SVM (RBF)                | 0.5761 | 0.5710 | 0.5826 | 0.5710 |
-| L1-LASSO      | Random Forest            | 0.5801 | 0.6794 | 0.5915 | 0.6794 |
-| L1-LASSO      | Logistic Regression (L1) | 0.5644 | 0.5372 | 0.6196 | 0.5372 |
-| L1-LASSO      | SVM (RBF)                | **0.5950** | 0.6008 | 0.5908 | 0.6008 |
-| RF-imp        | Random Forest            | 0.5795 | 0.6773 | 0.5541 | 0.6773 |
-| RF-imp        | Logistic Regression (L1) | 0.4909 | 0.4522 | 0.5726 | 0.4522 |
-| RF-imp        | SVM (RBF)                | 0.5610 | 0.5520 | 0.5766 | 0.5520 |
+  * L1-LASSO + SVM (RBF) → F1 ≈ 0.595, Accuracy ≈ 0.601
+* Η υψηλότερη ακρίβεια επιτεύχθηκε με:
 
-📁 Full results: [`ml_results.csv`](./ml_results.csv)
+  * RFE-SVM + Random Forest → Accuracy ≈ 0.686
+* Ο Random Forest ήταν ο πιο σταθερός ταξινομητής (Accuracy ~0.67–0.68).
+* Η Logistic Regression είχε χαμηλότερη ακρίβεια αλλά υψηλότερη Precision.
+* Η Boruta δεν βελτίωσε σημαντικά τα αποτελέσματα σε αυτό το dataset.
 
----
-
-## 📊 Visualization
-
-F1-score comparison across feature selection methods and classifiers:
-
-![F1-score comparison](./ml_results.png)
-
----
-
-## 🧪 Key Takeaways
-
-- **Best model:** `L1-LASSO + SVM (RBF)` → **F1 ≈ 0.595**, **Accuracy ≈ 0.601**  
-- **Highest accuracy:** `RFE-SVM + Random Forest` → **Accuracy ≈ 0.686**  
-- **Random Forest** shows stable performance across methods (~0.67–0.68 Accuracy).  
-- **Logistic Regression (L1)** trades accuracy for higher **Precision**, suitable when false positives must be minimized.  
-- **Boruta** underperforms compared to simpler filter-based methods like CorrSF.
-
----
-
-## 📊 Συνοψή Αποτελεσμάτων
-
-Η αξιολόγηση του pipeline ταξινόμησης NSCLC έδειξε ότι τα μοντέλα μηχανικής μάθησης μπορούν να μάθουν αποτελεσματικά από ραδιομικά χαρακτηριστικά και να διακρίνουν τους υποτύπους του καρκίνου με ικανοποιητική ακρίβεια.
-
-🔎 **Κύρια σημεία:**
-
-- Οι τιμές **F1-score** κυμαίνονται από ~0.40 έως **0.595**, ενώ η **Accuracy** από ~0.34 έως **0.686**.  
-- Ο καλύτερος συνολικά συνδυασμός ήταν:  
-  - **L1-LASSO + SVM (RBF)** → **F1 ≈ 0.595**, **Accuracy ≈ 0.601**  
-- Η υψηλότερη ακρίβεια επιτεύχθηκε με:  
-  - **RFE-SVM + Random Forest** → **Accuracy ≈ 0.686**  
-- Ο **Random Forest** παρουσίασε σταθερή απόδοση (~0.67–0.68 Accuracy).  
-- Η **Logistic Regression (L1)** είχε μικρότερη ακρίβεια αλλά υψηλότερη **Precision**, χρήσιμη σε περιπτώσεις όπου είναι κρίσιμη η μείωση ψευδώς θετικών.  
-- Η **Boruta** δεν υπερείχε, δείχνοντας ότι απλούστερες μέθοδοι (π.χ. CorrSF) μπορεί να είναι πιο αποτελεσματικές.
-
-📈 **Συμπέρασμα:**  
-Το pipeline επιτυγχάνει αξιόπιστη ταξινόμηση των υποτύπων NSCLC χρησιμοποιώντας αποκλειστικά ραδιομικά χαρακτηριστικά από αξονικές τομογραφίες. Παρότι οι επιδόσεις είναι μεσαίες, αποτελούν μια **ισχυρή βάση για περαιτέρω βελτίωση** με περισσότερα δεδομένα, συνδυασμό με ιστοπαθολογικές πληροφορίες και ενσωμάτωση τεχνικών ερμηνευσιμότητας όπως **SHAP** και **LIME**.
-
----
-
-## 📁 Files
-
-| File | Description |
-|------|------------|
-| `ml_results.csv` | Full metrics table |
-| `ml_results.png` | F1-score visualization |
-| `selected_features_*.csv` | Selected feature lists |
-
----
-
-📄 *Part of the MSc thesis project by **Evita Marini** – Ionian University MSc Program in Bioinformatics and Neuroinformatics.*
+**Συμπέρασμα:**
+Το pipeline παρουσιάζει ικανοποιητική απόδοση και δείχνει ότι τα ραδιομικά χαρακτηριστικά μπορούν να συμβάλουν ουσιαστικά στην ταξινόμηση των υποτύπων NSCLC. Με περισσότερα δεδομένα και την ενσωμάτωση τεχνικών ερμηνευσιμότητας (π.χ. SHAP, LIME) η απόδοση μπορεί να βελτιωθεί περαιτέρω.
