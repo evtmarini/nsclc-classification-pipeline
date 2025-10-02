@@ -69,9 +69,3 @@ nsclc-classification-pipeline/
 │
 └── main.py
 ```
-
----
-
-
-
-Θες να συνεχίσουμε με ένα **αντίστοιχα απλό και κατανοητό “Results” section** για το README; (Να μπει ακριβώς κάτω από αυτό.)
