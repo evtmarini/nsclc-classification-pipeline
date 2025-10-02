@@ -1,7 +1,7 @@
 
 # NSCLC Classification Pipeline
 
-**Development of a Machine Learning Model for Non-Small Cell Lung Cancer Detection**
+**Development of ML model for non-small cell lung cancer detection**
 
 ---
 
