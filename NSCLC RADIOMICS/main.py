@@ -1,3 +1,4 @@
+#Import libraries + packages
 import pandas as pd
 from src.load_data import load_and_clean
 from src.preprocessing import variance_filter, correlation_filter, stat_filter
@@ -17,7 +18,6 @@ from src.f1_boost_config import get_f1_boost_config
 
 
 # Paths
-
 base = Path("data")
 path = base / "labeled_radiomics_features.csv"
 results_dir = base / "feature_selection_results"
@@ -67,7 +67,7 @@ for name, func in methods.items():
         print(f" {name} failed: {e}")
 
 
-# Models
+# Models + params
 print("\n Loading models and hyperparameter grids:")
 models, param_grids = get_models_and_params()
 print(f" Loaded {len(models)} models.")
@@ -84,21 +84,14 @@ results_df.to_csv(results_path, index=False)
 plot_results(results_df, results_dir / "halving_results_all.png")
 print("\n Halving Search completed for all models and FS methods.")
 print(f" Results saved to: {results_path}")
-
-
 print("\n Optuna Bayesian Optimization: ")
 X_sel = selected_datasets["Boruta"]  # or "CorrSF"
-
 print("\n Optuna Bayesian Optimization...")
 X_sel = selected_datasets["mRMR"]  # or other FS method
-
 rf_f1, rf_params = optuna_report(X_sel, y, model_name="rf", n_trials=30)
 svm_f1, svm_params = optuna_report(X_sel, y, model_name="svm", n_trials=30)
 lgb_f1, lgb_params = optuna_report(X_sel, y, model_name="lgb", n_trials=30)
-
 print("\n Stacking Ensemble: ")
-
-
 print("\n Full Optimization Pipeline (ADASYN + PCA + Optuna + Stacking + SHAP)")
 X_sel = selected_datasets["mRMR"]  # or other FS method
 final_f1 = run_full_optimization(X_sel, y)
