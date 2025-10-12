@@ -1,14 +1,16 @@
+# Import libraries and packages
 import pandas as pd
 import numpy as np
 from sklearn.feature_selection import VarianceThreshold
 from scipy.stats import mannwhitneyu, kruskal
+from sklearn.preprocessing import PowerTransformer
 
-
+# Variance filter
 def variance_filter(X, threshold=0.01):
     vt = VarianceThreshold(threshold=threshold)
     return pd.DataFrame(vt.fit_transform(X), columns=X.columns[vt.get_support()])
 
-
+# Correlation filter
 def correlation_filter(X, threshold=0.85):
     corr = X.corr().abs()
     upper = corr.where(np.triu(np.ones(corr.shape), k=1).astype(bool))
@@ -23,7 +25,7 @@ def correlation_filter(X, threshold=0.85):
                 to_drop.append(drop)
     return X.drop(columns=to_drop)
 
-
+# Kruskal
 def stat_filter(X, y, alpha=0.1):
     classes = np.unique(y)
     selected = []
@@ -33,3 +35,4 @@ def stat_filter(X, y, alpha=0.1):
         if p < alpha:
             selected.append(col)
     return X[selected]
+
