@@ -68,4 +68,3 @@ nsclc-classification-pipeline/
 │   └── ml_results.png
 │
 └── main.py
-```
